@@ -232,15 +232,8 @@ int counter_red = 100;
 int counter = 50;
 int led_status = 1;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	if(counter_red>0) {
+					counter--;
 					counter_red--;
-					if(counter_red <=0) {
-						HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
-						counter_red = 100;
-					}
-				}
-		if(counter > 0) {
-			counter--;
 					if(counter <=0) {
 						counter=50;
 						switch(led_status) {
@@ -281,7 +274,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 						}
 						HAL_GPIO_TogglePin(GPIOA, Led_red_Pin);
 					}
-		}
+
+					if(counter_red<=0) {
+						HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+						counter_red=100;
+					}
 
 
 }
