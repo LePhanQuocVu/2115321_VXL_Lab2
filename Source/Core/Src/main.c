@@ -200,17 +200,14 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, DOT_Pin|Led_red_Pin|E_0_Pin|E_1_Pin
-                          |E_2_Pin|E_3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, Led_red_Pin|E_0_Pin|E_1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, Led7_0_Pin|Led7_1_Pin|Led7_2_Pin|Led7_3_Pin
                           |Led7_4_Pin|Led7_5_Pin|Led7_6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : DOT_Pin Led_red_Pin E_0_Pin E_1_Pin
-                           E_2_Pin E_3_Pin */
-  GPIO_InitStruct.Pin = DOT_Pin|Led_red_Pin|E_0_Pin|E_1_Pin
-                          |E_2_Pin|E_3_Pin;
+  /*Configure GPIO pins : Led_red_Pin E_0_Pin E_1_Pin */
+  GPIO_InitStruct.Pin = Led_red_Pin|E_0_Pin|E_1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
