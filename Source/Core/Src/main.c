@@ -248,6 +248,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 			default:
 				break;
 			}
+
 			HAL_GPIO_TogglePin(GPIOA, Led_red_Pin);
 		}
 }
