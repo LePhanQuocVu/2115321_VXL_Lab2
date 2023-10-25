@@ -25,6 +25,7 @@
 //#include "software_timer.h"
 #include "led7seg.h"
 #include "update7seg.h"
+#include "software_timer.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -96,10 +97,22 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  setTimer1(100);
+  setTimer2(100);
   while (1)
   {
-
+	  if(timer1_flag==1) {
+		  setTimer1(100);
+		  HAL_GPIO_TogglePin(GPIOA, Led_red_Pin);
+		  HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
+		  }
+		  if(timer2_flag == 1) {
+			  setTimer2(100);
+			  update7SEG(index_led++);
+			  if(index_led>=4) {
+				index_led=0;
+				}
+		  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

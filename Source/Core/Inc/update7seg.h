@@ -9,5 +9,5 @@
 #define INC_UPDATE7SEG_H_
 
 void  update7SEG(int index );
-
+extern int index_led;
 #endif /* INC_UPDATE7SEG_H_ */
