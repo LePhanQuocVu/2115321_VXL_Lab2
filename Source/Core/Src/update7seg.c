@@ -8,9 +8,8 @@
 #include "main.h"
 #include"update7seg.h"
 const int MAX_LED = 4;
-
 int led_buffer [4] = {1 , 2 , 3 , 4};
-void update7SEG ( int index ) {
+void update7SEG(int index ) {
 	switch ( index ) {
 			case 0:
 				HAL_GPIO_WritePin(E_0_GPIO_Port, E_0_Pin, RESET);
