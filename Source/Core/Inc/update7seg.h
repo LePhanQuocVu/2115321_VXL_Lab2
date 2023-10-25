@@ -10,4 +10,5 @@
 
 void  update7SEG(int index );
 extern int index_led;
+extern int led_buffer[4];
 #endif /* INC_UPDATE7SEG_H_ */
