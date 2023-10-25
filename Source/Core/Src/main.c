@@ -229,18 +229,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-int counter = 100;
-int index = 0;
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-		counter--;
-		if( counter <= 0){
-			counter = 100;
-			update7SEG(index++);
-			HAL_GPIO_TogglePin(Led_red_GPIO_Port, Led_red_Pin);
-			HAL_GPIO_TogglePin(DOT_GPIO_Port, DOT_Pin);
-			if(index >= 4)
-				index = 0;
-		}
+	timeRun();
 }
 /* USER CODE END 4 */
 
