@@ -14,7 +14,7 @@ extern int timer2_flag;
 void setTimer1(int duration);
 void setTimer2(int duration);
 
-void timeRun1();
-void timeRun2();
+void timeRun();
+
 
 #endif /* INC_SOFTWARE_TIMER_H_ */
