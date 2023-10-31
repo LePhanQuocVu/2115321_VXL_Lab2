@@ -26,6 +26,8 @@
 #include "led7seg.h"
 #include "update7seg.h"
 #include "software_timer.h"
+#include "offAllLedMatrix.h"
+#include <stdbool.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -40,6 +42,68 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 
+
+
+const int MAX_LED_MATRIX = 8;
+int index_led_matrix = 0;
+uint8_t matrix_buffer[8] = {0x18, 0x3C, 0x66, 0xC3, 0xC3, 0xC3, 0xC3, 0xC3};
+
+//
+
+void setRow(uint8_t matrix_buffer){
+	for (int i =0 ;i <MAX_LED_MATRIX; i++){
+		bool statusLed = (matrix_buffer >> (7 - i)) & 1;
+		if (statusLed == 1) {
+			onCol(i);
+		}
+	}
+}
+void updateLEDMatrix(int index){
+	switch(index){
+	case 0:
+		setRow(matrix_buffer[0]);
+		break;
+	case 1:
+		setRow(matrix_buffer[1]);
+		break;
+	case 2:
+		setRow(matrix_buffer[2]);
+		break;
+	case 3:
+		setRow(matrix_buffer[3]);
+		break;
+	case 4:
+		setRow(matrix_buffer[4]);
+		break;
+	case 5:
+		setRow(matrix_buffer[5]);
+		break;
+	case 6:
+		setRow(matrix_buffer[6]);
+		break;
+	case 7:
+		setRow(matrix_buffer[7]);
+		break;
+	default:
+		offAllMaxtrix();
+		break;
+	}
+}
+
+void displayLedMatrix() {
+	if (index_led_matrix < 8) {
+		// turn all
+		offAllMaxtrix();
+		// turn row
+		onRow(index_led_matrix);
+		// scan led
+		updateLEDMatrix(index_led_matrix);
+	}
+	index_led_matrix++;
+	if (index_led_matrix >= 8) {
+		index_led_matrix = 0;
+	}
+}
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -97,40 +161,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	int hour = 15, minute = 8, second = 50;
-	setTimer1(100);
-	setTimer2(100);
-	setTimer3(100);
-	while (1) {
-		if (timer3_flag == 1) {
-			setTimer3(100);
-			second++;
-			if (second >= 60) {
-				second = 0;
-				minute++;
-			}
-			if (minute >= 60) {
-				minute = 0;
-				hour++;
-			}
-			if (hour >= 24) {
-				hour = 0;
-			}
-			updateClockBuffer(hour,minute);
-		}
-
-		if (timer1_flag == 1) {
-			setTimer1(100);
-			HAL_GPIO_TogglePin(GPIOA, Led_red_Pin);
-			HAL_GPIO_TogglePin(GPIOA, DOT_Pin);
-		}
-		if (timer2_flag == 1) {
-			setTimer2(100);
-			update7SEG(index_led++);
-			if (index_led >= 4) {
-				index_led = 0;
-			}
-		}
+	 setTimer1(10);
+	 setTimer2(100);
+	  while (1)
+	  {
+		  if (timer1_flag == 1){
+			  setTimer1(10);
+			  displayLedMatrix();
+		  }
+		  if (timer2_flag == 1){
+			  setTimer2(100);
+			  HAL_GPIO_TogglePin(Led_red_GPIO_Port, Led_red_Pin);
+		  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
